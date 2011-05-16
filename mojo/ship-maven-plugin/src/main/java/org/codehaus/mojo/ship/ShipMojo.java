@@ -116,7 +116,7 @@ public class ShipMojo
 
     /**
      * Whether to try and ship -SNAPSHOT versions, if <code>true</code> and the {@link #shipVersion} is a -SNAPSHOT
-     * version then an attempt will be made to ship the project artifacts .
+     * version then no attempt will be made to ship the project artifacts.
      *
      * @parameter expression="${shipSnapshotsSkipped}" default-value="false"
      * @since 0.1
