@@ -60,6 +60,6 @@ Ship Maven Plugin
   To provide you with better understanding of some usages of the Ship Plugin,
   you can take a look into the following examples:
 
-  * {{{./examples/redeploy-old-version.html}Re-deploying an old version}}
+  * {{{./examples/redeploy-old-versions.html}Re-deploying an old version}}
 
   * {{{./examples/deploy-on-release.html}Deploying a version with every release}}
