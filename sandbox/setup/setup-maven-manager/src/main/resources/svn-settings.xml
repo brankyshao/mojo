@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svn-settings>
+<!-- <configDirectory>your_configuration_directory</configDirectory>-->
+
+<!-- true in order to use cygwin path /cygdrive/c  -->
+<!-- <useCygwinPath>false</useCygwinPath> -->
+
+<!-- the mount path to use default is /cygwin -->
+<!-- <cygwinMountPath>/cygwin</cygwinMountPath>-->
+
+<!-- if false &#150;&#150;non-interactive will not be used in the svn command line-->
+<!-- <useNonInteractive>false</useNonInteractive> -->
+
+<!-- if true &#150;&#150;trust-server-cert will be used in the cli -->
+<!-- <trustServerCert>false</trustServerCert> -->
+
+<!-- Get switch on if you want to cache authentication credentials (Warning: this will overwrite existing authentication credentials on your working copy). -->
+<!-- <useAuthCache>false</useAuthCache> -->
+
+</svn-settings>

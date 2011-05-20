@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<clearcase-settings>
+  <useVWSParameter>false</useVWSParameter>
+  <changelogUserFormat>changelogUserFormat_åäöéèü</changelogUserFormat>
+  <clearcaseType>clearcaseType_åäöéèü</clearcaseType>
+  <viewstore>viewstore_åäöéèü</viewstore>
+</clearcase-settings>
