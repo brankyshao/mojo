@@ -180,57 +180,61 @@ public class EjbDeployMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        if ( !getMavenProject().getPackaging().equalsIgnoreCase( "ejb" ) )
-        {
-            throw new MojoExecutionException( "Invalid packaging type, this plugin can only be applied to ejb packaging type projects" );
-        }
-
-        super.execute();
-        
-        if ( !getOutputJarFile().exists() )  //TODO: Solve generically - MWAS-14 - why doesn't failOnError fail the build and ws_ant return a returncode != 0?
-        {
-            throw new MojoExecutionException( "Deployment failed - see previous errors" );
-        }
-
-        File[] workingDirectorySubdirs =
-            getWorkingDirectory().listFiles( (java.io.FileFilter) DirectoryFileFilter.DIRECTORY );
-        if ( workingDirectorySubdirs.length == 1 )
-        {
-            // copy sources
-            File generatedSources = new File( workingDirectorySubdirs[0], getMavenProject().getBuild().getFinalName() + File.separator + "ejbModule" );
-            try
+         if(!isSkip()){
+            if ( !getMavenProject().getPackaging().equalsIgnoreCase( "ejb" ) )
             {
-                FileUtils.copyDirectory( generatedSources, getGeneratedSourcesDirectory() );
-                FileUtils.deleteDirectory( new File( getGeneratedSourcesDirectory(), "META-INF" ) );
-            }
-            catch ( IOException e )
-            {
-                throw new MojoExecutionException( "Error copying generated sources", e );
+                throw new MojoExecutionException( "Invalid packaging type, this plugin can only be applied to ejb packaging type projects" );
             }
 
-            List compileSourceRoots = getMavenProject().getCompileSourceRoots();
-            compileSourceRoots.add( getGeneratedSourcesDirectory().getPath() );
+            super.execute();
 
-            // copy generated classes
-            File generatedClasses =
-                new File( workingDirectorySubdirs[0], getMavenProject().getBuild().getFinalName() + File.separator +
-                    "build" + File.separator + "classes" );
+            if ( !getOutputJarFile().exists() )  //TODO: Solve generically - MWAS-14 - why doesn't failOnError fail the build and ws_ant return a returncode != 0?
+            {
+                throw new MojoExecutionException( "Deployment failed - see previous errors" );
+            }
 
-            try
+            File[] workingDirectorySubdirs =
+                getWorkingDirectory().listFiles( (java.io.FileFilter) DirectoryFileFilter.DIRECTORY );
+            if ( workingDirectorySubdirs.length == 1 )
             {
-                FileUtils.copyDirectory( generatedClasses, getGeneratedClassesDirectory() );
-                Resource resource = new Resource();
-                resource.setDirectory( getGeneratedClassesDirectory().getPath() );
-                getMavenProject().getResources().add( resource );
+                // copy sources
+                File generatedSources = new File( workingDirectorySubdirs[0], getMavenProject().getBuild().getFinalName() + File.separator + "ejbModule" );
+                try
+                {
+                    FileUtils.copyDirectory( generatedSources, getGeneratedSourcesDirectory() );
+                    FileUtils.deleteDirectory( new File( getGeneratedSourcesDirectory(), "META-INF" ) );
+                }
+                catch ( IOException e )
+                {
+                    throw new MojoExecutionException( "Error copying generated sources", e );
+                }
+
+                List compileSourceRoots = getMavenProject().getCompileSourceRoots();
+                compileSourceRoots.add( getGeneratedSourcesDirectory().getPath() );
+
+                // copy generated classes
+                File generatedClasses =
+                    new File( workingDirectorySubdirs[0], getMavenProject().getBuild().getFinalName() + File.separator +
+                        "build" + File.separator + "classes" );
+
+                try
+                {
+                    FileUtils.copyDirectory( generatedClasses, getGeneratedClassesDirectory() );
+                    Resource resource = new Resource();
+                    resource.setDirectory( getGeneratedClassesDirectory().getPath() );
+                    getMavenProject().getResources().add( resource );
+                }
+                catch ( IOException e )
+                {
+                    throw new MojoExecutionException( "Error copying generated classes", e );
+                }
             }
-            catch ( IOException e )
+            else
             {
-                throw new MojoExecutionException( "Error copying generated classes", e );
+                getLog().warn( "No sources were generated" );
             }
-        }
-        else
-        {
-            getLog().warn( "No sources were generated" );
+        }else{
+            getLog().info( "Skipping execution" );
         }
 
         getLog().info( "ejbDeploy finished" );
