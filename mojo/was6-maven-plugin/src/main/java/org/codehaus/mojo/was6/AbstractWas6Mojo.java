@@ -161,6 +161,15 @@ public abstract class AbstractWas6Mojo
     }
 
     /**
+     * Returns true if skip.
+     * @return skip value.
+     */
+    protected boolean isSkip()
+    {
+        return skip;
+    }
+    
+    /**
      * Locates the ws_ant.sh|bat executable.
      * 
      * @return a File pointing on the executable
