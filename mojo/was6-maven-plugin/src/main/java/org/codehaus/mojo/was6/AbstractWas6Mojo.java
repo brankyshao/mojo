@@ -350,6 +350,7 @@ public abstract class AbstractWas6Mojo
     {
         if ( skip ) {
             getLog().info( "Skipping execution" );
+            return;
         }
         if ( wasHome == null )
         {
